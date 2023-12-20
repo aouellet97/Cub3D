@@ -80,7 +80,6 @@ typedef struct s_mblock
 	struct s_mblock	*next_mb;
 }	t_mblock;
 
-
 typedef struct s_map
 {
 	size_t	x;
@@ -88,7 +87,6 @@ typedef struct s_map
 	mlx_t	*mlx;
 	char	**map;
 }			t_map;
-
 
 typedef struct s_raycast
 {
