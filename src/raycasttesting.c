@@ -43,10 +43,5 @@ int test_ray(void)
 
     // Draw the line using DDA algorithm
     drawLineDDA(x1, y1, x2, y2);
-
-    // Wait for a key press and close the graphics window
-    getch();
-    closegraph();
-
     return 0;
 }
