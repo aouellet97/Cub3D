@@ -355,6 +355,8 @@ char** get_map(t_cube* cube, char *content)
 		i++;
 	}
 	populate_map(map, content);
+	cube->height = cube->y_size + 1;
+	cube->width = cube->x_size;
 	return map;
 }
 

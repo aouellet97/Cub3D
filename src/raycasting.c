@@ -3,18 +3,7 @@
 // #define MAP_WIDTH 8
 // #define MAP_HEIGHT 8
 
-// // Map representing the environment (1 for wall, 0 for empty space)
-// int map[MAP_WIDTH][MAP_HEIGHT] = 
-// {
-//     {1, 1, 1, 1, 1, 1, 1, 1},
-//     {1, 0, 0, 0, 0, 0, 0, 1},
-//     {1, 0, 1, 1, 1, 1, 0, 1},
-//     {1, 0, 1, 0, 0, 1, 0, 1},
-//     {1, 0, 1, 0, 0, 1, 0, 1},
-//     {1, 0, 0, 0, 0, 0, 0, 1},
-//     {1, 1, 1, 1, 1, 1, 1, 1},
-//     {1, 1, 1, 1, 1, 1, 1, 1}
-// };
+
 
 // // // Player's position and direction
 

@@ -1,4 +1,4 @@
-// #include "cub3d.h"
+#include "cub3d.h"
 
 // static void	ft_mchook(mlx_key_data_t k, void *param)
 // {

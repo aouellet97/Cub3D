@@ -16,6 +16,9 @@
 # include <math.h>
 # include "raycast.h"
 
+# define SCREENWIDTH 1024
+#define SCREENHEIGHT  768
+
 //	Errors ----------------------------------------------------
 #define ERROR -1
 #define SUCESS 0
@@ -80,13 +83,18 @@ typedef struct s_mblock
 	struct s_mblock	*next_mb;
 }	t_mblock;
 
-typedef struct s_map
+
+typedef struct s_cubmlx
 {
-	size_t	x;
-	size_t	y;
 	mlx_t	*mlx;
-	char	**map;
-}			t_map;
+	mlx_texture_t*	north_text;
+	mlx_texture_t*	south_text;
+	mlx_texture_t*	east_text;
+	mlx_texture_t*	west_text;
+
+	
+}			t_cubmlx;
+
 
 typedef struct s_raycast
 {
@@ -104,6 +112,8 @@ typedef struct s_cube
 	char	**map;
 	int 	y_size;
 	int		x_size;
+	int		width;
+	int		height;
 	enum 	e_ori orientation;
 	int 	start_y;
 	int		start_x;
@@ -120,7 +130,7 @@ typedef struct s_cube
 	bool 	found_map;
 	t_raycast *coordinates;	
 	t_raycast *coords;
-	t_map	*setup;
+	t_cubmlx	*cubmlx;
 }	t_cube;
 
 t_cube	*get_cube();
@@ -138,6 +148,9 @@ void print_tab(char**split);
 
 // Raycasting ------------------------------------------------
 
+
+// Mlx -------------------------------------------
+int	ft_window(t_cube *cube);
 
 // Garbage Collector and memory functions ------------------------------------------------
 t_mblock	*garbage_collector(void);

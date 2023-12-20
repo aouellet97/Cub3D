@@ -2,9 +2,9 @@
 
 t_cube	*get_cube()
 {
-	static t_map map;
+	static t_cubmlx cubmlx;
 	static t_cube cube;
-	cube.setup = &map;
+	cube.cubmlx = &cubmlx;
 
 	return (&cube);
 }
@@ -38,6 +38,7 @@ int main(int argc, char **argv)
 		ft_error(FD_ERROR);
 	read_file(cube);
 	parsing(get_cube());
+	ft_window(cube);
 	gc_free_all();
 	return SUCESS; 
 }
