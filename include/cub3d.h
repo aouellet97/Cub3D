@@ -163,5 +163,11 @@ char	*gc_strdup(const char *s1);
 char	*gc_strjoin(char const *s1, char const *s2);
 char	**gc_split(char const *s, char c);
 void	*gc_calloc(size_t nmemb, size_t size);
+//test --
+int test_ray(void);
+void drawLineDDA(int x1, int y1, int x2, int y2);
+
+
+
 
 #endif
