@@ -46,19 +46,20 @@
 
 
 
-// int	ft_window(t_cube *gpack)
-// {
-// 	gpack->setup->mlx = mlx_init(gpack->x_size * 64, gpack->y_size * 64,
-// 			"CUB3D by TDA-3D", true);
-// 	if (!gpack->setup->mlx)
-// 		;
-// 	// init_map(gpack);
-// 	//mlx_key_hook(gpack->mlx, &ft_mchook, gpack);
-// 	mlx_loop(gpack->setup->mlx);
-// 	mlx_terminate(gpack->setup->mlx);
-// 	// leave(gpack);
-// 	return (EXIT_SUCCESS);
-// }
+int	ft_window(t_cube *gpack)
+{
+	gpack->setup->mlx = mlx_init(gpack->x_size * 64, gpack->y_size * 64,
+			"CUB3D by TDA-3D", 1);
+	if (!gpack->setup->mlx)
+		;
+	// init_map(gpack);
+	//mlx_key_hook(gpack->mlx, &ft_mchook, gpack);
+	mlx_loop(gpack->setup->mlx);
+	mlx_terminate(gpack->setup->mlx);
+	// mlx_put_pixel();
+	// leave(gpack);
+	return (1);
+}
 
 
 
