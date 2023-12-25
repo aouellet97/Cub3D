@@ -5,42 +5,66 @@
 #define COLOR_EAST  0xFF00FFFF  
 #define COLOR_WEST  0x00FFFFFF  
 
+int is_valid_move(double x, double y)
+{
+    t_cube *cube = get_cube();
+
+    int map_x = (int)x;
+    int map_y = (int)y;
+
+    if (cube->map[map_y][map_x] != '1')
+    {
+        return 1; 
+    }
+
+    return 0; 
+}
 
  void	key_hook(void)
  {
  	
 	t_cube*cube = get_cube();
 	t_raycast *rc = cube->raycast;
- 	//t_cube *cube = get_cube();
- 	// if (keydata.key == MLX_KEY_ESCAPE)
- 	 //	mlx_close_window(map->m_pack->mlx);
 
- 	if (mlx_is_key_down(cube->cubmlx->mlx, MLX_KEY_W))
- 	{
- 		/*
- 		if(cube->map[(int)rc->pos_y][(int)(rc->pos_x + rc->dir_x * MOVE_SPEED)] == false) 
-	  		rc->pos_x += rc->dir_x * MOVE_SPEED;
-        if(cube->map[(int)(rc->pos_y + rc->dir_y * MOVE_SPEED)][(int)(rc->pos_x)] == false) 
-	  		rc->pos_y += rc->dir_y * MOVE_SPEED;
-		printf("W\n");
-	*/
- 	}
- 	if  (mlx_is_key_down(cube->cubmlx->mlx, MLX_KEY_S)) 
- 		/*
-		{
- 			 if(cube->map[(int)(rc->pos_y)][(int)(rc->pos_x - rc->dir_x * MOVE_SPEED)] == false) 
-	  			rc->pos_x -= rc->dir_x * MOVE_SPEED;
-     		 if(cube->map[(int)(rc->pos_y - rc->dir_y * MOVE_SPEED)][(int)(rc->pos_x)] == false) 
-	  			rc->pos_y -= rc->dir_y * MOVE_SPEED;
-			printf("S\n");
- 		}*/
-	if (mlx_is_key_down(cube->cubmlx->mlx, MLX_KEY_A))
-		printf("s");
-		//fdsf
-	if (mlx_is_key_down(cube->cubmlx->mlx, MLX_KEY_D))
-		;
-		// printf("s");
-		//sdfs
+    double new_x = rc->pos_x;
+    double new_y = rc->pos_y;
+
+ 	if (mlx_is_key_down(cube->cubmlx->mlx, MLX_KEY_ESCAPE))
+ 	 	mlx_close_window(cube->cubmlx->mlx);
+	
+    if (mlx_is_key_down(cube->cubmlx->mlx, MLX_KEY_W))
+    {
+        new_x += rc->dir_x * MOVE_SPEED;
+        new_y += rc->dir_y * MOVE_SPEED;
+    }
+    if (mlx_is_key_down(cube->cubmlx->mlx, MLX_KEY_S))
+    {
+        new_x -= rc->dir_x * MOVE_SPEED;
+        new_y -= rc->dir_y * MOVE_SPEED;
+    }
+
+    if (mlx_is_key_down(cube->cubmlx->mlx, MLX_KEY_A))
+    {
+        new_x -= rc->plane_x * MOVE_SPEED;
+        new_y -= rc->plane_y * MOVE_SPEED;
+    }
+    if (mlx_is_key_down(cube->cubmlx->mlx, MLX_KEY_D))
+    {
+        new_x += rc->plane_x * MOVE_SPEED;
+        new_y += rc->plane_y * MOVE_SPEED;
+    }
+
+
+    if (is_valid_move(new_x, rc->pos_y))
+    {
+        rc->pos_x = new_x;
+    }
+
+    if (is_valid_move(rc->pos_x, new_y))
+    {
+        rc->pos_y = new_y;
+    }
+
  	if (mlx_is_key_down(cube->cubmlx->mlx, MLX_KEY_RIGHT))
  		{
 			double	x;
@@ -72,17 +96,39 @@
 
 void set_raycast_vars(t_raycast*rc)
 {
-	rc->pos_x = (double)get_cube()->start_x + 0.5;
-	rc->pos_y = (double)get_cube()->start_y + 0.5;
 
-	//change based on letter
-	rc->dir_x = 1;
-	rc->dir_y = 0;
-	rc->plane_x = 0;
-	rc->plane_y = 0.66; 
+	t_cube *cube = get_cube();
+	rc->pos_x = (double)cube->start_x + 0.5;
+	rc->pos_y = (double)cube->start_y + 0.5;
 
-
-
+	if (cube->orientation == N) 
+	{
+	    rc->dir_x = 0;
+	    rc->dir_y = -1;
+	    rc->plane_x = 0.66;
+	    rc->plane_y = 0;
+	}
+	 else if (cube->orientation == S) 
+	 {
+	    rc->dir_x = 0;
+	    rc->dir_y = 1;
+	    rc->plane_x = -0.66;
+	    rc->plane_y = 0;
+	} 
+	else if (cube->orientation == E)
+	 {
+	    rc->dir_x = 1;
+	    rc->dir_y = 0;
+	    rc->plane_x = 0;
+	    rc->plane_y = 0.66;
+	}
+	 else if (cube->orientation == W)
+	  {
+	    rc->dir_x = -1;
+	    rc->dir_y = 0;
+	    rc->plane_x = 0;
+	    rc->plane_y = -0.66;
+	}
 }
 
 
@@ -208,6 +254,26 @@ void raycasting_loop(void *arg)
 
 		//------------------------------------------------------------------
 
+		y = rc->draw_start;
+
+		while (y < rc->draw_end) 
+		{
+			unsigned int pixel_color;
+
+    // Set the color based on whether y is below or above the midpoint
+    if (y < SCREENHEIGHT / 2)
+    {
+        pixel_color = cube->cubmlx->ceiling_color; // Color for the ceiling
+    }
+    else
+    {
+	
+        pixel_color = cube->cubmlx->floor_color; // Color for the floor
+    }
+
+    mlx_put_pixel(cube->cubmlx->img_buf, x, y, pixel_color);
+    y++;
+}
 		// y = rc->draw_start;
 
 		// while (y < rc->draw_end) 
