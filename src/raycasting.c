@@ -96,15 +96,39 @@ int is_valid_move(double x, double y)
 
 void set_raycast_vars(t_raycast*rc)
 {
-	rc->pos_x = (double)get_cube()->start_x + 0.5;
-	rc->pos_y = (double)get_cube()->start_y + 0.5;
 
-	//change based on letter
-	rc->dir_x = 1;
-	rc->dir_y = 0;
-	rc->plane_x = 0;
-	rc->plane_y = 0.66; 
+	t_cube *cube = get_cube();
+	rc->pos_x = (double)cube->start_x + 0.5;
+	rc->pos_y = (double)cube->start_y + 0.5;
 
+if (cube->orientation == N) 
+{
+    rc->dir_x = 0;
+    rc->dir_y = -1;
+    rc->plane_x = 0.66;
+    rc->plane_y = 0;
+}
+ else if (cube->orientation == S) 
+ {
+    rc->dir_x = 0;
+    rc->dir_y = 1;
+    rc->plane_x = -0.66;
+    rc->plane_y = 0;
+} 
+else if (cube->orientation == E)
+ {
+    rc->dir_x = 1;
+    rc->dir_y = 0;
+    rc->plane_x = 0;
+    rc->plane_y = 0.66;
+}
+ else if (cube->orientation == W)
+  {
+    rc->dir_x = -1;
+    rc->dir_y = 0;
+    rc->plane_x = 0;
+    rc->plane_y = -0.66;
+}
 
 
 }
