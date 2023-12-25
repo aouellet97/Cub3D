@@ -31,7 +31,7 @@ int is_valid_move(double x, double y)
 
  	if (mlx_is_key_down(cube->cubmlx->mlx, MLX_KEY_ESCAPE))
  	 	mlx_close_window(cube->cubmlx->mlx);
-
+	
     if (mlx_is_key_down(cube->cubmlx->mlx, MLX_KEY_W))
     {
         new_x += rc->dir_x * MOVE_SPEED;
@@ -231,7 +231,25 @@ void raycasting_loop(void *arg)
         }
 
 		//------------------------------------------------------------------
+	y = 0;
+while (y < SCREENHEIGHT)
+{
+    unsigned int pixel_color;
 
+    // Set the color based on whether y is below or above the midpoint
+    if (y < SCREENHEIGHT / 2)
+    {
+        pixel_color = cube->cubmlx->ceiling_color; // Color for the ceiling
+    }
+    else
+    {
+	
+        pixel_color = cube->cubmlx->floor_color; // Color for the floor
+    }
+
+    mlx_put_pixel(cube->cubmlx->img_buf, x, y, pixel_color);
+    y++;
+}
 		y = rc->draw_start;
 
 		while (y < rc->draw_end) 
