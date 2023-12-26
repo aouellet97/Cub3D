@@ -24,6 +24,8 @@
 # define MOVE_SPEED 0.00007
 # define ROTATE_SPEED 0.000040
 
+# define ROTATE_RIGHT 1
+# define ROTATE_LEFT 2
 //	Errors ----------------------------------------------------
 #define ERROR -1
 #define SUCESS 0
@@ -131,6 +133,8 @@ typedef struct s_raycast
 	int line_height;
 	int draw_start;
 	int draw_end;
+	double	new_x;
+	double	new_y;
 	//double move_speed;
 	//double rot_speed;
 }	t_raycast;
