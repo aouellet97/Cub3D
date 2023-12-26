@@ -2,14 +2,14 @@
 # define CUB3D_H
 
 //	Headers ----------------------------------------------------
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <stdbool.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <fcntl.h>
+# include <stdbool.h>
 # include <limits.h>
 
-#include "libft.h"
+# include "libft.h"
 # include "MLX42.h"
 
 // 			- For Raycasting
@@ -24,31 +24,37 @@
 # define MOVE_SPEED 0.00007
 # define ROTATE_SPEED 0.000040
 
+# define ROTATE_RIGHT 1
+# define ROTATE_LEFT 2
+# define MOVE_UP 1
+# define MOVE_DOWN 2
+# define MOVE_LEFT 3
+# define MOVE_RIGHT 4
 //	Errors ----------------------------------------------------
-#define ERROR -1
-#define SUCESS 0
+# define ERROR -1
+# define SUCESS 0
+ 
+# define NOT_CUB "The file is not a .cub"
+# define NOT_PNG "THe texture is not a .png"
+# define NO_MAP "Please pass one map as argument"
 
-#define NOT_CUB "The file is not a .cub"
-#define NOT_PNG "THe texture is not a .png"
-#define NO_MAP "Please pass one map as argument"
+# define FD_ERROR "File does not exist or an error occured when oppening it"
+# define MALLOC_ERROR "Error when allocating memory from heap"
+# define READ_ERROR "Error when reading file"
 
-#define FD_ERROR "File does not exist or an error occured when oppening it"
-#define MALLOC_ERROR "Error when allocating memory from heap"
-#define READ_ERROR "Error when reading file"
+# define MAP_NOT_END "Map is not at the end of the file"
+# define WEIRD_CHAR "Map must contains only '0' '1' 'N' 'S' 'W' 'E' characters"  
+# define MAP_OPEN "Playable map is not enclosed with walls or has holes on it"
+# define MANY_POS "There's more than one player start position"
+# define NO_POS "There is no player start position"
+# define MAP_NOT "Map description not found"
 
-#define MAP_NOT_END "Map is not at the end of the file"
-#define WEIRD_CHAR "Map must contains only '0' '1' 'N' 'S' 'W' 'E' characters"  
-#define MAP_OPEN "Playable map is not enclosed with walls or has holes on it"
-#define MANY_POS "There's more than one player start position"
-#define NO_POS "There is no player start position"
-#define MAP_NOT "Map description not found"
-
-#define NO_TEXT "Texture does not exist"
-#define EXISTS "Element exists already"
-#define BAD_COLOR "Error in the color code"
-#define MORE_255 "Number higher than 255"
-#define MISSING "Some informations are missing"
-#define RANDOM "Random informations"
+# define NO_TEXT "Texture does not exist"
+# define EXISTS "Element exists already"
+# define BAD_COLOR "Error in the color code"
+# define MORE_255 "Number higher than 255"
+# define MISSING "Some informations are missing"
+# define RANDOM "Random informations"
 
 
 //	Colors ----------------------------------------------------
@@ -131,6 +137,8 @@ typedef struct s_raycast
 	int line_height;
 	int draw_start;
 	int draw_end;
+	double	new_x;
+	double	new_y;
 	//double move_speed;
 	//double rot_speed;
 }	t_raycast;
