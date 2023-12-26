@@ -5,6 +5,10 @@
 #define COLOR_EAST  0xFF00FFFF  
 #define COLOR_WEST  0x00FFFFFF  
 
+
+
+
+
 int is_valid_move(double x, double y)
 {
     t_cube *cube = get_cube();

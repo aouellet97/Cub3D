@@ -97,6 +97,12 @@ typedef struct s_cubmlx
 	mlx_texture_t*	south_text;
 	mlx_texture_t*	east_text;
 	mlx_texture_t*	west_text;
+	
+	uint32_t	**n_buffer;
+	uint32_t	**s_buffer;
+	uint32_t	**e_buffer;
+	uint32_t	**w_buffer;
+
 	mlx_image_t*	img_buf;
 	mlx_image_t*	bg_buf;
 	uint32_t		ceiling_color;
