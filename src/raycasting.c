@@ -1,11 +1,78 @@
 #include "cub3d.h"
 
-#define COLOR_NORTH 0x0000FFFF  
-#define COLOR_SOUTH 0x00FF00FF  
-#define COLOR_EAST  0xFF00FFFF  
-#define COLOR_WEST  0x00FFFFFF  
+int	get_hit(t_cube *cube, t_raycast*rc, mlx_texture_t *texture)
+{
+	double	hit;
+	int buf_x;
+	
+	hit = 0;
+	if (rc->side == 0 || rc->side == 1)
+		hit = rc->pos_y + rc->perp_wall_dist * rc->ray_dir_y;
+	else
+		hit = rc->pos_x + rc->perp_wall_dist * rc->ray_dir_x;
+	hit -= (int) hit;
+	buf_x = (int)(hit * (double) texture->width);
+	if ((rc->side == 0 || rc->side == 1) && rc->ray_dir_x > 0)
+		buf_x = texture->width - buf_x - 1;
+	if ((rc->side == 2 || rc->side == 3) && rc->ray_dir_y < 0)
+		buf_x = texture->width - buf_x - 1;
+	return buf_x;
+}
+
+void	draw_texture(mlx_texture_t *texture, uint32_t **buf, int x, int buf_x)
+{
+	double	dist;
+	double	pos;
+	int		buf_y; 
+	int		j; 
+	t_cube *cube;
+
+	cube = get_cube();
+	dist = 1.0 * texture->height / cube->raycast->line_height;
+	pos = ((double) cube->raycast->draw_start - (double) SCREENHEIGHT / 2
+			+ (double) cube->raycast->line_height / 2) * dist;
+	if (pos < 0)
+		pos = 0;
+	j = cube->raycast->draw_start - 1;
+	j++;
+	while (j < cube->raycast->draw_end)
+	{
+		buf_y = (int) pos;
+		if (pos > texture->height - 1)
+			pos = texture->height - 1;
+		pos += dist;
+		mlx_put_pixel(cube->cubmlx->img_buf , x, j, buf[buf_y][buf_x]);
+		j++;	
+	}
+}
 
 
+void	display_texture(t_cube *cube, int x)
+{
+	int buf_x;
+
+	buf_x = 0;
+	if (cube->raycast->side == 0)
+	{
+		buf_x = get_hit(cube, cube->raycast, cube->cubmlx->south_text);
+		draw_texture(cube->cubmlx->south_text, cube->cubmlx->s_buffer, x, buf_x);
+	}
+	else if (cube->raycast->side== 1)
+	{
+		buf_x = get_hit(cube, cube->raycast, cube->cubmlx->north_text);
+		draw_texture(cube->cubmlx->north_text, cube->cubmlx->n_buffer, x, buf_x);
+	}
+	else if (cube->raycast->side == 2) 
+	{
+		buf_x = get_hit(cube, cube->raycast, cube->cubmlx->east_text);
+		draw_texture(cube->cubmlx->east_text, cube->cubmlx->e_buffer, x, buf_x);
+	}
+	else if (cube->raycast->side == 3)
+	{
+		buf_x = get_hit(cube, cube->raycast, cube->cubmlx->west_text);
+		draw_texture(cube->cubmlx->west_text, cube->cubmlx->w_buffer, x, buf_x);
+	}
+}
 
 
 
@@ -143,26 +210,7 @@ void set_raycast_vars(t_raycast *rc)
 		set_vars_raycast(cube, rc);
 }
 
-static void texture_loop(t_cube *cube, int y, int x, t_raycast *rc)
-{
-	unsigned int pixel_color;
 
-	while (y < rc->draw_end) 
-	{
-		if(rc->side == 0)
-			pixel_color = COLOR_NORTH;
-		else if(rc->side == 1)
-				pixel_color = COLOR_SOUTH;
-		else if(rc->side == 2)
-				pixel_color = COLOR_EAST;
-		else if(rc->side == 3)
-				pixel_color = COLOR_WEST;
-		else
-			pixel_color = 0;
-		mlx_put_pixel(cube->cubmlx->img_buf, x, y, pixel_color);
-		y++;
-	}
-}
 
 static void cast_floor_ceiling(int x, int y, t_raycast *rc)
 {
@@ -256,8 +304,8 @@ static void set_ray_limit(t_raycast *rc)
         rc->draw_start = 0;
     rc->draw_end = rc->line_height / 2 + SCREENHEIGHT / 2;
     if (rc->draw_end >= SCREENHEIGHT) 
-        rc->draw_end = SCREENHEIGHT - 1;
-}
+        rc->draw_end = SCREENHEIGHT;
+} 
 
 void raycasting_loop(void *arg)
 {
@@ -281,8 +329,9 @@ void raycasting_loop(void *arg)
 			rc->perp_wall_dist = (rc->side_dist_y - rc->delta_dist_y);
 		set_ray_limit(rc);
 		cast_floor_ceiling(x, 0, rc);
-		texture_loop(cube, rc->draw_start, x,rc);
+		display_texture(cube,x);
 		key_hook();
 		x++;
 	}
+	usleep(1000);
 }	

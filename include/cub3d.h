@@ -16,13 +16,13 @@
 # include <math.h>
 # include "raycast.h"
 
-# define SCREENWIDTH 1920
-# define SCREENHEIGHT  1080
+# define SCREENWIDTH 1080
+# define SCREENHEIGHT  720
 # define TEXWIDTH 64
 # define TEXTHEIGHT 64
 
-# define MOVE_SPEED 0.00007
-# define ROTATE_SPEED 0.000040
+# define MOVE_SPEED 0.00008
+# define ROTATE_SPEED 0.00007
 
 # define ROTATE_RIGHT 1
 # define ROTATE_LEFT 2

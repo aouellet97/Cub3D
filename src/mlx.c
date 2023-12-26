@@ -6,15 +6,12 @@ int	translate_color(int r, int g, int b, int alpha)
 }
 
 
-
-
-
-
-void texture_buffer(mlx_texture_t *texture, uint32_t **buffer)
+uint32_t **texture_buffer(mlx_texture_t *texture)
 {
 	uint32_t	x;
 	uint32_t y;
 	uint32_t i;
+	uint32_t **buffer;
 
 	y = 0;
 	x = 0;
@@ -37,36 +34,10 @@ void texture_buffer(mlx_texture_t *texture, uint32_t **buffer)
 		}
 		y++;
 	}
+	return buffer;
 }
 
-void  display_background(t_cube *cube)
-{
-	int x;
-	int y;
 
-	y = 0;
-	x = 0;
-	while(y < SCREENHEIGHT / 2)
-	{
-		x = 0;
-		while(x < SCREENWIDTH)
-		{
-			mlx_put_pixel(cube->cubmlx->bg_buf,x,y,cube->cubmlx->floor_color);
-			x++;
-		}
-		y++;
-	}
-	while(y < SCREENHEIGHT)
-	{
-		x = 0;
-		while(x < SCREENWIDTH)
-		{
-			mlx_put_pixel(cube->cubmlx->bg_buf,x,y,cube->cubmlx->ceiling_color);
-			x++;
-		}
-		y++;
-	}
-}
 
 
 
@@ -82,7 +53,7 @@ int	mlx_start(t_cube *cube)
 	cube->cubmlx->bg_buf = mlx_new_image(cube->cubmlx->mlx,SCREENWIDTH,SCREENHEIGHT);
 	if(!cube->cubmlx->bg_buf)
 		return 1;
-	display_background(cube);
+	
 	if(mlx_image_to_window(cube->cubmlx->mlx,cube->cubmlx->bg_buf,0,0) == ERROR)
 		return 1;
 
@@ -105,10 +76,10 @@ int	mlx_start(t_cube *cube)
 	 cube->cubmlx->west_text = mlx_load_png(cube->we_path);
 	 if(!cube->cubmlx->west_text)
 	 	return 1;
-	texture_buffer(cube->cubmlx->north_text, cube->cubmlx->n_buffer);
-	texture_buffer(cube->cubmlx->south_text, cube->cubmlx->s_buffer);
-	texture_buffer(cube->cubmlx->east_text, cube->cubmlx->e_buffer);
-	texture_buffer(cube->cubmlx->west_text, cube->cubmlx->w_buffer);
+	cube->cubmlx->n_buffer = texture_buffer(cube->cubmlx->north_text );
+	cube->cubmlx->s_buffer = texture_buffer(cube->cubmlx->south_text );
+	cube->cubmlx->e_buffer = texture_buffer(cube->cubmlx->east_text);
+	cube->cubmlx->w_buffer = texture_buffer(cube->cubmlx->west_text );
 	set_raycast_vars(cube->raycast);
 
 	//mlx_key_hook(cube->cubmlx->mlx, &key_hook, NULL);
