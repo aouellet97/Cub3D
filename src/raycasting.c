@@ -17,12 +17,28 @@ int is_valid_move(double x, double y)
     return (0); 
 }
 
-
-
-static void adjust_move(t_raycast *rc, double dir_x, double dir_y)
+static void adjust_move(t_raycast *rc, int dir)
 {
-	rc->new_x += dir_x * MOVE_SPEED;
-    rc->new_y += dir_y * MOVE_SPEED;
+	if (dir == MOVE_UP)
+	{
+		rc->new_x += rc->dir_x * MOVE_SPEED;
+    	rc->new_y += rc->dir_y * MOVE_SPEED;
+	}
+		if (dir == MOVE_DOWN)
+	{
+		rc->new_x -= rc->dir_x * MOVE_SPEED;
+    	rc->new_y -= rc->dir_y * MOVE_SPEED;
+	}
+	if (dir == MOVE_LEFT)
+	{
+		rc->new_x -= rc->plane_x * MOVE_SPEED;
+    	rc->new_y -= rc->plane_y * MOVE_SPEED;
+	}
+	if (dir == MOVE_RIGHT)
+	{
+		rc->new_x += rc->plane_x * MOVE_SPEED;
+    	rc->new_y += rc->plane_y * MOVE_SPEED;
+	}
 }
 
 static void adjust_rotation(t_raycast *rc, int direction)
@@ -49,8 +65,8 @@ static void adjust_rotation(t_raycast *rc, int direction)
  	}
 }
 
- void	key_hook(void)
- {
+void	key_hook(void)
+{
 	t_raycast *rc;
 	t_cube*cube;
 	
@@ -60,14 +76,14 @@ static void adjust_rotation(t_raycast *rc, int direction)
     rc->new_y = rc->pos_y;
  	if (mlx_is_key_down(cube->cubmlx->mlx, MLX_KEY_ESCAPE))
  	 	mlx_close_window(cube->cubmlx->mlx);
-    if (mlx_is_key_down(cube->cubmlx->mlx, MLX_KEY_S))
-		adjust_move(rc, rc->dir_x, rc->dir_y);
     if (mlx_is_key_down(cube->cubmlx->mlx, MLX_KEY_W))
-		adjust_move(rc, rc->dir_x, rc->dir_y);
+		adjust_move(rc, MOVE_UP);
+    if (mlx_is_key_down(cube->cubmlx->mlx, MLX_KEY_S))
+		adjust_move(rc, MOVE_DOWN);
     if (mlx_is_key_down(cube->cubmlx->mlx, MLX_KEY_A))
-   		adjust_move(rc, rc->dir_x, rc->dir_y);
+   		adjust_move(rc, MOVE_LEFT);
     if (mlx_is_key_down(cube->cubmlx->mlx, MLX_KEY_D))
-    	adjust_move(rc, rc->dir_x, rc->dir_y);
+    	adjust_move(rc, MOVE_RIGHT);
 	if (is_valid_move(rc->new_x, rc->pos_y))
         rc->pos_x = rc->new_x;
     if (is_valid_move(rc->pos_x, rc->new_y))
@@ -76,31 +92,27 @@ static void adjust_rotation(t_raycast *rc, int direction)
 		adjust_rotation(rc, ROTATE_RIGHT);
  	if (mlx_is_key_down(cube->cubmlx->mlx, MLX_KEY_LEFT))
 		adjust_rotation(rc, ROTATE_LEFT);
- }
+}
 
+static void set_vars_raycast(t_cube *cube, t_raycast *rc)
+{
+	if (cube->orientation == E)
+	 {
+	    rc->dir_x = 1;
+	    rc->dir_y = 0;
+	    rc->plane_x = 0;
+	    rc->plane_y = 0.66;
+	}
+	 else if (cube->orientation == W)
+	  {
+	    rc->dir_x = -1;
+	    rc->dir_y = 0;
+	    rc->plane_x = 0;
+	    rc->plane_y = -0.66;
+	}
+}
 
-// static void exe_key()
-// {
-
-
-
-
-
-
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-void set_raycast_vars(t_raycast*rc)
+void set_raycast_vars(t_raycast *rc)
 {
 
 	t_cube *cube;
@@ -123,22 +135,9 @@ void set_raycast_vars(t_raycast*rc)
 	    rc->plane_x = -0.66;
 	    rc->plane_y = 0;
 	} 
-	else if (cube->orientation == E)
-	 {
-	    rc->dir_x = 1;
-	    rc->dir_y = 0;
-	    rc->plane_x = 0;
-	    rc->plane_y = 0.66;
-	}
-	 else if (cube->orientation == W)
-	  {
-	    rc->dir_x = -1;
-	    rc->dir_y = 0;
-	    rc->plane_x = 0;
-	    rc->plane_y = -0.66;
-	}
+	else
+		set_vars_raycast(cube, rc);
 }
-
 
 static void texture_loop(t_cube *cube, int y, int x, t_raycast *rc)
 {
