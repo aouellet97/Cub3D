@@ -4,11 +4,11 @@
 
 SO ./tex 	tures/ b	ri  ck.png
 
-NO . / textures/pa 	 th_to_ 	 the_north_te	 xture  . p n 	g
+NO . / textures/brick  . p n 	g
 
 
-WE . /    t extures  / path_to_the_west_texture.png 	  
-  	EA ./textures/pa     th_to_the_ east_tex 	 		 ture . 		p n g
+WE . /    t extures  / brick.png 	  
+  	EA ./textures/brick. 		p n g
 	C  	255 , 0 , 	 1	 7
 
  	111111111111111111111
