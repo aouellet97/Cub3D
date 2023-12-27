@@ -42,50 +42,41 @@ uint32_t **texture_buffer(mlx_texture_t *texture)
 
 
 
-int	mlx_start(t_cube *cube)
+void	mlx_start(t_cube *cube)
 {
 	cube->cubmlx->ceiling_color = translate_color(cube->c_red, cube->c_green, cube->c_blue, 255);
 	cube->cubmlx->floor_color = translate_color(cube->f_red, cube->f_green, cube->f_blue, 255);
 	cube->cubmlx->mlx = mlx_init(SCREENWIDTH, SCREENHEIGHT, "CUB3D by TDA-3D", false);
 	if(!cube->cubmlx->mlx)
-		return 1; 
-
-	cube->cubmlx->bg_buf = mlx_new_image(cube->cubmlx->mlx,SCREENWIDTH,SCREENHEIGHT);
-	if(!cube->cubmlx->bg_buf)
-		return 1;
-	
-	if(mlx_image_to_window(cube->cubmlx->mlx,cube->cubmlx->bg_buf,0,0) == ERROR)
-		return 1;
+		ft_error(MLXER);
 
 	cube->cubmlx->img_buf = mlx_new_image(cube->cubmlx->mlx,SCREENWIDTH,SCREENHEIGHT);
 	if(!cube->cubmlx->img_buf)
-		return 1;
+		ft_error(MLXER);
+
 	if(mlx_image_to_window(cube->cubmlx->mlx,cube->cubmlx->img_buf,0,0) == ERROR)
-		return 1;
+		ft_error(MLXER);
 
 	cube->cubmlx->south_text = mlx_load_png(cube->so_path);
 	if(!cube->cubmlx->south_text)
-		return 1;
+		ft_error(MLXER);
 
 	 cube->cubmlx->north_text = mlx_load_png(cube->no_path);
 	 if(!cube->cubmlx->north_text)
-	 	return 1;
+	 	ft_error(MLXER);
 	 cube->cubmlx->east_text = mlx_load_png(cube->ea_path);
 	 if(!cube->cubmlx->east_text)
-	 	return 1;
+	 	ft_error(MLXER);
 	 cube->cubmlx->west_text = mlx_load_png(cube->we_path);
 	 if(!cube->cubmlx->west_text)
-	 	return 1;
+	 	ft_error(MLXER);
 	cube->cubmlx->n_buffer = texture_buffer(cube->cubmlx->north_text );
 	cube->cubmlx->s_buffer = texture_buffer(cube->cubmlx->south_text );
 	cube->cubmlx->e_buffer = texture_buffer(cube->cubmlx->east_text);
 	cube->cubmlx->w_buffer = texture_buffer(cube->cubmlx->west_text );
-	set_raycast_vars(cube->raycast);
 
-	//mlx_key_hook(cube->cubmlx->mlx, &key_hook, NULL);
+	set_raycast_vars(cube->raycast);
 	mlx_loop_hook(cube->cubmlx->mlx,&raycasting_loop,cube);
 	mlx_loop(cube->cubmlx->mlx);
-	mlx_terminate(cube->cubmlx->mlx);
-	//free mlx stuff and add in error function
-	return (EXIT_SUCCESS);
+	
 }

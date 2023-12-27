@@ -56,6 +56,7 @@
 # define MISSING "Some informations are missing"
 # define RANDOM "Random informations"
 
+#define MLXER "mlx failed in some way"
 
 //	Colors ----------------------------------------------------
 # define RED "\033[0;31m"
@@ -110,7 +111,6 @@ typedef struct s_cubmlx
 	uint32_t	**w_buffer;
 
 	mlx_image_t*	img_buf;
-	mlx_image_t*	bg_buf;
 	uint32_t		ceiling_color;
 	uint32_t		floor_color;
 
@@ -187,16 +187,15 @@ void parsing(t_cube*cube);
 
 //	Errors and free ----------------------------------------------------
 void ft_error(char *message);
-
+void clear_mlx(t_cubmlx*cmlx);
 // Testing ------------------------------------------------
 void print_tab(char**split);
 
 // Raycasting ------------------------------------------------
 void raycasting_loop(void *arg);
 void set_raycast_vars(t_raycast*rc);
-void	key_hook(void);
 // Mlx -------------------------------------------
-int	mlx_start(t_cube *cube);
+void	mlx_start(t_cube *cube);
 
 // Garbage Collector and memory functions ------------------------------------------------
 t_mblock	*garbage_collector(void);

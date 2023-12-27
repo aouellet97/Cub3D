@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-int	get_hit(t_cube *cube, t_raycast*rc, mlx_texture_t *texture)
+int	get_hit(t_raycast*rc, mlx_texture_t *texture)
 {
 	double	hit;
 	int buf_x;
@@ -54,22 +54,22 @@ void	display_texture(t_cube *cube, int x)
 	buf_x = 0;
 	if (cube->raycast->side == 0)
 	{
-		buf_x = get_hit(cube, cube->raycast, cube->cubmlx->south_text);
+		buf_x = get_hit(cube->raycast, cube->cubmlx->south_text);
 		draw_texture(cube->cubmlx->south_text, cube->cubmlx->s_buffer, x, buf_x);
 	}
 	else if (cube->raycast->side== 1)
 	{
-		buf_x = get_hit(cube, cube->raycast, cube->cubmlx->north_text);
+		buf_x = get_hit(cube->raycast, cube->cubmlx->north_text);
 		draw_texture(cube->cubmlx->north_text, cube->cubmlx->n_buffer, x, buf_x);
 	}
 	else if (cube->raycast->side == 2) 
 	{
-		buf_x = get_hit(cube, cube->raycast, cube->cubmlx->east_text);
+		buf_x = get_hit(cube->raycast, cube->cubmlx->east_text);
 		draw_texture(cube->cubmlx->east_text, cube->cubmlx->e_buffer, x, buf_x);
 	}
 	else if (cube->raycast->side == 3)
 	{
-		buf_x = get_hit(cube, cube->raycast, cube->cubmlx->west_text);
+		buf_x = get_hit(cube->raycast, cube->cubmlx->west_text);
 		draw_texture(cube->cubmlx->west_text, cube->cubmlx->w_buffer, x, buf_x);
 	}
 }
@@ -136,13 +136,8 @@ static void adjust_rotation(t_raycast *rc, int direction)
  	}
 }
 
-void	key_hook(void)
+void	key_hook(t_cube*cube,t_raycast *rc)
 {
-	t_raycast *rc;
-	t_cube*cube;
-	
-	cube = get_cube();
-	rc = cube->raycast;
     rc->new_x = rc->pos_x;
     rc->new_y = rc->pos_y;
  	if (mlx_is_key_down(cube->cubmlx->mlx, MLX_KEY_ESCAPE))
@@ -154,11 +149,15 @@ void	key_hook(void)
     if (mlx_is_key_down(cube->cubmlx->mlx, MLX_KEY_A))
    		adjust_move(rc, MOVE_LEFT);
     if (mlx_is_key_down(cube->cubmlx->mlx, MLX_KEY_D))
+	{
     	adjust_move(rc, MOVE_RIGHT);
+	}
 	if (is_valid_move(rc->new_x, rc->pos_y))
         rc->pos_x = rc->new_x;
     if (is_valid_move(rc->pos_x, rc->new_y))
-        rc->pos_y = rc->new_y;
+	{
+        rc->pos_y = rc->new_y;	
+	}
  	if (mlx_is_key_down(cube->cubmlx->mlx, MLX_KEY_RIGHT))
 		adjust_rotation(rc, ROTATE_RIGHT);
  	if (mlx_is_key_down(cube->cubmlx->mlx, MLX_KEY_LEFT))
@@ -312,11 +311,9 @@ void raycasting_loop(void *arg)
 	t_cube	*cube;
 	t_raycast *rc;
 	int x;
-	int y;
 
 	cube = (t_cube*)arg;
 	rc = cube->raycast;
-	y = 0;
 	x = 0;
 	while(x < SCREENWIDTH)
 	{
@@ -330,8 +327,8 @@ void raycasting_loop(void *arg)
 		set_ray_limit(rc);
 		cast_floor_ceiling(x, 0, rc);
 		display_texture(cube,x);
-		key_hook();
-		x++;
+		key_hook(cube,cube->raycast);
+		x++; 
 	}
-	usleep(1000);
+	
 }	

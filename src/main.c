@@ -31,6 +31,14 @@ int main(int argc, char **argv)
 	t_cube* cube;
 
 	cube = get_cube();
+	
+	//put in a function to call at first in main
+	cube->cubmlx->north_text = NULL;
+	cube->cubmlx->south_text = NULL;
+	cube->cubmlx->east_text = NULL;
+	cube->cubmlx->west_text = NULL;
+	cube->cubmlx->img_buf = NULL;
+	cube->cubmlx->mlx = NULL;
 	if(argc < 2)
 		ft_error(NO_MAP);
 	if(cub_verification(argv[1]) == ERROR)

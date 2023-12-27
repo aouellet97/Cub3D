@@ -34,7 +34,9 @@ void	gc_free_all(void)
 {
 	t_mblock	*gc_ptr;
 	t_mblock	*ptr_copy;
+	t_cube 		*cube;
 	
+	cube = get_cube();
 	gc_ptr = garbage_collector()->next_mb;
 	while (gc_ptr)
 	{
@@ -45,7 +47,8 @@ void	gc_free_all(void)
 		free(ptr_copy);
 	}
 	garbage_collector()->next_mb = NULL;
-	close(get_cube()->fd);
+	close(cube->fd);
+	clear_mlx(cube->cubmlx);
 }
 
 void	gc_free(void*address)
