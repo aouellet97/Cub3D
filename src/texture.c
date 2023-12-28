@@ -74,13 +74,13 @@ void	display_texture(t_cube *cube, int x)
 	{
 		buf_x = get_hit(cube->raycast, cube->cubmlx->south_text);
 		draw_texture(cube->cubmlx->south_text, cube->cubmlx->s_buffer, x,
-				buf_x);
+			buf_x);
 	}
 	else if (cube->raycast->side == 1)
 	{
 		buf_x = get_hit(cube->raycast, cube->cubmlx->north_text);
 		draw_texture(cube->cubmlx->north_text, cube->cubmlx->n_buffer, x,
-				buf_x);
+			buf_x);
 	}
 	else if (cube->raycast->side == 2)
 	{

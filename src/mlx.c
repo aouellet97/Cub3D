@@ -30,9 +30,9 @@ static uint32_t	**texture_buffer(mlx_texture_t *texture)
 		while (x < texture->width)
 		{
 			buffer[y][x] = translate_color((uint32_t)texture->pixels[i],
-											(uint32_t)texture->pixels[i + 1],
-											(uint32_t)texture->pixels[i + 2],
-											(uint32_t)texture->pixels[i + 3]);
+					(uint32_t)texture->pixels[i + 1],
+					(uint32_t)texture->pixels[i + 2],
+					(uint32_t)texture->pixels[i + 3]);
 			i = line_saver(i, x++);
 		}
 		y++;

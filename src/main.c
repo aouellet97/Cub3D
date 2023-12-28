@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-t_cube	*get_cube()
+t_cube	*get_cube(void)
 {
 	static t_cubmlx		cubmlx;
 	static t_cube		cube;

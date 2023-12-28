@@ -4,8 +4,8 @@ void	read_file(t_cube *cube)
 {
 	char	*buffer;
 	char	*copy;
+	int		read_return;
 
-	int read_return ;
 	buffer = NULL;
 	copy = NULL;
 	read_return = 0;
