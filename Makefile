@@ -3,13 +3,22 @@ MAP = ""
 
 INCLUDES = -I ./lib/libft/ -I ./lib/MLX42/include/MLX42/ -I ./ -I ./src/ -I ./include
 SRCS = 	src/main.c \
+		src/parse_colour.c\
+		src/parse_map.c\
+		src/parse_path.c\
+		src/parse_verif.c\
 		src/parsing.c \
+		src/keyhook.c\
 		src/errors.c \
+		src/init.c\
+		src/raycasting_set.c\
 		src/raycasting.c\
+		src/texture.c\
 		src/mlx.c\
-		src/gc.c  \
+		src/gc.c\
 		src/gc_split.c \
 		src/gc_others.c \
+		src/utils.c\
 
 #	Directories
 LIB_DIR = lib/

@@ -1,10 +1,9 @@
 #include "cub3d.h"
 
-
 static int	count_words(char const *s, char c)
 {
-	int	i;
 	int	count;
+	int	i;
 
 	i = 0;
 	count = 0;
@@ -19,9 +18,9 @@ static int	count_words(char const *s, char c)
 
 static int	allocation(char **tab, char const *s, char c)
 {
+	int	start;
 	int	i;
 	int	j;
-	int	start;
 
 	i = 0;
 	j = 0;

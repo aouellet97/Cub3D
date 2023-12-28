@@ -2,36 +2,34 @@
 
 t_cube	*get_cube()
 {
-	static t_cubmlx cubmlx;
-	static t_cube cube;
-	static t_raycast raycast;
+	static t_cubmlx		cubmlx;
+	static t_cube		cube;
+	static t_raycast	raycast;
+
 	cube.cubmlx = &cubmlx;
 	cube.raycast = &raycast;
-
 	return (&cube);
 }
 
-	 		  	 	 	 	 	 	 	
-
-void print_tab(char**split)
+void	print_tab(char **split)
 {
-	int i = 0;
-	if(!split)
+	int	i;
+
+	i = 0;
+	if (!split)
 		return ;
-	while(split[i])
+	while (split[i])
 	{
-		printf("%s\n",split[i]);
+		printf("%s\n", split[i]);
 		i++;
 	}
 }
 
-
-int main(int argc, char **argv)
-{ 
-	t_cube* cube;
+int	main(int argc, char **argv)
+{
+	t_cube	*cube;
 
 	cube = get_cube();
-	
 	//put in a function to call at first in main
 	cube->cubmlx->north_text = NULL;
 	cube->cubmlx->south_text = NULL;
@@ -39,16 +37,16 @@ int main(int argc, char **argv)
 	cube->cubmlx->west_text = NULL;
 	cube->cubmlx->img_buf = NULL;
 	cube->cubmlx->mlx = NULL;
-	if(argc < 2)
+	if (argc < 2)
 		ft_error(NO_MAP);
-	if(cub_verification(argv[1]) == ERROR)
-		ft_error(NOT_CUB);     
+	if (cub_verification(argv[1]) == ERROR)
+		ft_error(NOT_CUB);
 	cube->fd = open(argv[1], O_RDONLY);
-	if(cube->fd == ERROR)
+	if (cube->fd == ERROR)
 		ft_error(FD_ERROR);
 	read_file(cube);
 	parsing(get_cube());
 	mlx_start(cube);
 	gc_free_all();
-	return SUCESS; 
+	return (SUCESS);
 }

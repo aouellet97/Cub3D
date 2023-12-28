@@ -178,25 +178,44 @@ typedef struct s_cube
 }	t_cube;
 
 t_cube	*get_cube();
-
-//	Parsing ----------------------------------------------------
+// Init ----------------------------------
+void init_infos(t_cube*cube);
+void get_map_infos(t_cube* cube, char *content);
+char** get_map(t_cube* cube, char *content);
+// Parse_colour ----------------------------
+void add_color_code(enum e_id id, int n, int i);
+void split_color_code(char *code, enum e_id id);
+void parse_color_code(char *code, enum e_id id);
+// Parse_map ---------------------------------
+int find_map_start(char *content);
+void validate_map(char *content);
+void flood_fill(t_cube *cube, int y, int x);
+// Parse_path -------------------------------
+void add_path_body(t_cube *cube, char *path, enum e_id id);
+void add_path( char *path, enum e_id id);
+// Parse_verif ----------------------------------------
 int	cub_verification(char *path);
 int	png_verification(char *path);
+//	Parsing ----------------------------------------------------
 void read_file(t_cube*cube);
 void parsing(t_cube*cube);
-
+// Keyhook --------------------------------
+void	key_hook(t_cube*cube,t_raycast *rc);
 //	Errors and free ----------------------------------------------------
 void ft_error(char *message);
 void clear_mlx(t_cubmlx*cmlx);
 // Testing ------------------------------------------------
 void print_tab(char**split);
-
 // Raycasting ------------------------------------------------
 void raycasting_loop(void *arg);
+// Raycasting_set ----------------------------------
+void set_vars_raycast(t_cube *cube, t_raycast *rc);
 void set_raycast_vars(t_raycast*rc);
+// Texture ---------------------------
+void cast_floor_ceiling(int x, int y, t_raycast *rc);
+void	display_texture(t_cube *cube, int x);
 // Mlx -------------------------------------------
 void	mlx_start(t_cube *cube);
-
 // Garbage Collector and memory functions ------------------------------------------------
 t_mblock	*garbage_collector(void);
 void	*gc_malloc(size_t size);
@@ -208,5 +227,8 @@ char	*gc_strdup(const char *s1);
 char	*gc_strjoin(char const *s1, char const *s2);
 char	**gc_split(char const *s, char c);
 void	*gc_calloc(size_t nmemb, size_t size);
-
+// Utils ------------------------------------------------------------
+int		is_whitespace(char c);
+int 	is_map_char(char c);
+void 	find_position(char **map,t_cube *cube, int x, int y);
 #endif
