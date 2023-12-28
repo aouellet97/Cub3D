@@ -12,7 +12,6 @@
 # include <unistd.h>
 
 // 			- For Raycasting
-# include "raycast.h"
 # include <math.h>
 
 # define SCREENWIDTH 1080
