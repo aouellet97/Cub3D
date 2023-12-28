@@ -39,7 +39,7 @@ int	main(int argc, char **argv)
 	cube->cubmlx->mlx = NULL;
 	if (argc < 2)
 		ft_error(NO_MAP);
-	if (cub_verification(argv[1]) == ERROR)
+	if (file_verification(argv[1], "cub") == ERROR)
 		ft_error(NOT_CUB);
 	cube->fd = open(argv[1], O_RDONLY);
 	if (cube->fd == ERROR)
