@@ -44,7 +44,7 @@ int	main(int argc, char **argv)
 	if (cube->fd == ERROR)
 		ft_error(FD_ERROR);
 	read_file(cube);
-	if(!cube->content)
+	if (!cube->content)
 		ft_error(READ_ERROR);
 	parsing(get_cube());
 	mlx_start(cube);

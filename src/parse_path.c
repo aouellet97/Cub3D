@@ -33,21 +33,21 @@ void	add_path(char *path, enum e_id id)
 	t_cube	*cube;
 
 	cube = get_cube();
-	if (file_verification(path,"png") == ERROR)
+	if (file_verification(path, "png") == ERROR)
 		ft_error(NOT_PNG);
 	if (open(path, O_RDONLY) == ERROR)
 		ft_error(NO_TEXT);
 	add_path_body(cube, path, id);
 }
 
-int	file_verification(char *path, char*s)
+int	file_verification(char *path, char *s)
 {
 	int	len;
 
 	len = ft_strlen(path);
-	if (len > 4 && path[len - 5] != '/' && ft_tolower(path[len - 1]) == s[2] &&
-		ft_tolower(path[len - 2]) == s[1] && ft_tolower(path[len - 3]) == s[0]
-			&& path[len - 4] == '.')
+	if (len > 4 && path[len - 5] != '/' && ft_tolower(path[len - 1]) == s[2]
+		&& ft_tolower(path[len - 2]) == s[1] && ft_tolower(path[len - 3])
+		== s[0] && path[len - 4] == '.')
 		return (SUCESS);
 	return (ERROR);
 }

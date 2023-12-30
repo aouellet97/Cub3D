@@ -21,8 +21,6 @@ void	read_file(t_cube *cube)
 		cube->content = gc_strjoin(copy, buffer);
 		ft_bzero(buffer, BUFFER_SIZE + 1);
 	}
-	if (!cube->content)
-		ft_error(EMPTY_FILE);
 }
 
 char	*remove_wspaces(char *line)
