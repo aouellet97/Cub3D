@@ -35,12 +35,13 @@
 # define SUCESS 0
 
 # define NOT_CUB "The file is not a .cub"
-# define NOT_PNG "THe texture is not a .png"
+# define NOT_PNG "The texture is not a .png"
 # define NO_MAP "Please pass one map as argument"
 
 # define FD_ERROR "File does not exist or an error occured when oppening it"
 # define MALLOC_ERROR "Error when allocating memory from heap"
 # define READ_ERROR "Error when reading file"
+# define EMPTY_FILE "File provided is empty"
 
 # define MAP_NOT_END "Map is not at the end of the file"
 # define WEIRD_CHAR "Map must contains only '0' '1' 'N' 'S' 'W' 'E' characters"
