@@ -28,6 +28,8 @@
 # define MOVE_DOWN 2
 # define MOVE_LEFT 3
 # define MOVE_RIGHT 4
+
+# define HITBOX 0.2
 //	Errors ----------------------------------------------------
 # define ERROR -1
 # define SUCESS 0
