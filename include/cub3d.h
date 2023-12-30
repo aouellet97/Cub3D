@@ -192,6 +192,7 @@ void				add_path(char *path, enum e_id id);
 // Parse_verif ----------------------------------------
 int					cub_verification(char *path);
 int					png_verification(char *path);
+int					file_verification(char *path, char*s);
 //	Parsing ----------------------------------------------------
 void				read_file(t_cube *cube);
 void				parsing(t_cube *cube);
