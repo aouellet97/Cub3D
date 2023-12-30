@@ -6,7 +6,6 @@ SRCS = 	src/main.c \
 		src/parse_colour.c\
 		src/parse_map.c\
 		src/parse_path.c\
-		src/parse_verif.c\
 		src/parsing.c \
 		src/keyhook.c\
 		src/errors.c \

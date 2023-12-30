@@ -30,7 +30,6 @@ int	main(int argc, char **argv)
 	t_cube	*cube;
 
 	cube = get_cube();
-	//put in a function to call at first in main
 	cube->cubmlx->north_text = NULL;
 	cube->cubmlx->south_text = NULL;
 	cube->cubmlx->east_text = NULL;
@@ -39,12 +38,14 @@ int	main(int argc, char **argv)
 	cube->cubmlx->mlx = NULL;
 	if (argc < 2)
 		ft_error(NO_MAP);
-	if (cub_verification(argv[1]) == ERROR)
+	if (file_verification(argv[1], "cub") == ERROR)
 		ft_error(NOT_CUB);
 	cube->fd = open(argv[1], O_RDONLY);
 	if (cube->fd == ERROR)
 		ft_error(FD_ERROR);
 	read_file(cube);
+	if(!cube->content)
+		ft_error(READ_ERROR);
 	parsing(get_cube());
 	mlx_start(cube);
 	gc_free_all();
