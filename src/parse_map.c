@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_map.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/03 15:07:49 by wmillett          #+#    #+#             */
+/*   Updated: 2024/01/03 15:09:06 by wmillett         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 int	find_map_start(char *content)
@@ -51,7 +63,7 @@ void	validate_map(char *content)
 void	flood_fill(t_cube *cube, int y, int x)
 {
 	if (cube->map[y][x] == '-' || x == 0 || y == 0 || x == get_cube()->x_size
-		- 1 || y == get_cube()->y_size) //change to space
+		- 1 || y == get_cube()->y_size)
 		ft_error(MAP_OPEN);
 	if (cube->map[y][x] == '0')
 		cube->map[y][x] = 'X';

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/03 15:07:36 by wmillett          #+#    #+#             */
+/*   Updated: 2024/01/03 15:09:39 by wmillett         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 void	init_infos(t_cube *cube)
@@ -85,7 +97,7 @@ char	**get_map(t_cube *cube, char *content)
 	{
 		map[i] = gc_malloc(sizeof(char) * (cube->x_size + 1));
 		map[i][cube->x_size] = 0;
-		ft_memset(map[i], '-', cube->x_size); //change with space
+		ft_memset(map[i], '-', cube->x_size);
 		i++;
 	}
 	populate_map(map, content);

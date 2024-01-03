@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   texture.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/03 15:08:02 by wmillett          #+#    #+#             */
+/*   Updated: 2024/01/03 15:08:03 by wmillett         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 void	cast_floor_ceiling(int x, int y, t_raycast *rc)
@@ -10,9 +22,9 @@ void	cast_floor_ceiling(int x, int y, t_raycast *rc)
 	while (y < SCREENHEIGHT)
 	{
 		if (y < SCREENHEIGHT / 2)
-			pixel_color = cube->cubmlx->ceiling_color; // Color for the ceiling
+			pixel_color = cube->cubmlx->ceiling_color;
 		else
-			pixel_color = cube->cubmlx->floor_color; // Color for the floor
+			pixel_color = cube->cubmlx->floor_color;
 		mlx_put_pixel(cube->cubmlx->img_buf, x, y, pixel_color);
 		y++;
 	}

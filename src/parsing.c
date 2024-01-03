@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: wmillett <wmillett@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/03 15:07:54 by wmillett          #+#    #+#             */
+/*   Updated: 2024/01/03 15:07:55 by wmillett         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 void	read_file(t_cube *cube)
@@ -116,7 +128,3 @@ void	parsing(t_cube *cube)
 	flood_fill(cube, cube->start_y, cube->start_x);
 	print_tab(cube->map);
 }
-
-//integrate garbage collector and copy libft mallocedfunctions here
-
-//dont forget to check if map is not bigger than screen size
