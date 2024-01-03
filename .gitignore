@@ -10,6 +10,9 @@
 !include/
 !*.h
 
+!invalid_maps
+!*.cub
+
 !lib/
 !lib/libft/
 

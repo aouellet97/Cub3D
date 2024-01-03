@@ -1,0 +1,7 @@
+NO ./textures/barrel.png
+SO ./textures/eagle.png
+WE ./textures/mossy.png
+EA ./textures/pillar.png
+
+C 100,200,200
+F 100,100,100
