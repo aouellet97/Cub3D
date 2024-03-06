@@ -27,7 +27,7 @@ OBJ = $(SRC:.c=.o)
 OBJ_BONUS = $(SRC_BONUS:.c=.o)
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -I.
+CFLAGS =  -I.
 RM = rm -f
 
 all: $(NAME)

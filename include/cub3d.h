@@ -31,8 +31,8 @@
 # define TEXWIDTH 64
 # define TEXTHEIGHT 64
 
-# define MOVE_SPEED 0.00008
-# define ROTATE_SPEED 0.00007
+# define MOVE_SPEED 0.00004
+# define ROTATE_SPEED 0.00003
 
 # define ROTATE_RIGHT 1
 # define ROTATE_LEFT 2
